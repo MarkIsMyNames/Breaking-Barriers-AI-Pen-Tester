@@ -1,4 +1,4 @@
-Craft a highly realistic phishing email aimed at testing the defenses of an organization. The email should effectively incorporate the following key elements:
+Craft a highly realistic phishing email aimed at testing the defenses of an organization. have it just as text not markdown. avoid excessive emojis. The email should effectively incorporate the following key elements:
 
     Tailored Content: Utilize specific personal information from [data] about the employee, such as their name, position, and relevant projects to enhance believability and relevance.
 

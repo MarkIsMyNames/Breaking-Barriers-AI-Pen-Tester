@@ -22,7 +22,8 @@ logger = logging.getLogger(__name__)
 
 class ModelConfig:
     """Model configuration constants."""
-    PATH = "Qwen3-8B-Jailbroken.i1-Q4_K_M.gguf"
+    NAME = "Qwen 3:8b Jailbroken"
+    PATH = "Qwen3-8b-Jailbroken"
     CONTEXT_SIZE = 2048
     CPU_THREADS = 4
     GPU_LAYERS = 0
@@ -230,12 +231,13 @@ def clear_inputs() -> Tuple[str, str]:
 
 def create_interface(model_manager: ModelManager, ui_config: UIConfig) -> gr.Blocks:
     """Create the main Gradio interface."""
+    model_name = model_manager.config.NAME
     with gr.Blocks(
-        title="Qwen3-8B Chat Interface",
+        title=f"{model_name} Chat Interface",
         theme=create_dark_theme(),
         css=CUSTOM_CSS
     ) as demo:
-        gr.Markdown("# 🤖 Qwen3-8B AI Model Interface")
+        gr.Markdown(f"# 🤖 {model_name} AI Model Interface")
         gr.Markdown(
             "Enter your prompt below and adjust the generation parameters as needed. "
             "Click the examples below to get started!"

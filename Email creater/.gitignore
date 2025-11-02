@@ -1,0 +1,25 @@
+# Large model files (>100MB GitHub limit)
+Qwen3-8b-Jailbroken
+*.gguf
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
