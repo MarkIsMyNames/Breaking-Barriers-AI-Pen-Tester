@@ -1,0 +1,46 @@
+Analyse all available user data to build a detailed contextual profile. Organise your findings into the following categories:
+
+1. COMMUNICATION PROFILE
+
+Writing Style & Patterns: Tone (formal/casual), sentence structure, common phrases, communication preferences
+Language Conventions: Spelling preferences (US/UK English), punctuation habits, formatting style
+Response Patterns: Average response times, communication cadence, interaction preferences
+
+2. PROFESSIONAL NETWORK
+
+Organisational Structure: Direct manager, team members, direct reports, cross-functional collaborators
+Key Relationships: Frequent contacts, decision-makers, external partners, clients
+Interaction Patterns: Communication frequency by person/role, relationship dynamics
+
+3. WORK CONTEXT & RESPONSIBILITIES
+
+Active Projects: Current initiatives, project names, scope, and user's role
+Deadlines & Milestones: Upcoming due dates, sprint schedules, review cycles
+Responsibilities: Core job functions, recurring tasks, areas of ownership
+Technical Stack: Programming languages, tools, platforms, frameworks used (if applicable)
+
+4. TEMPORAL & LOCATION DATA
+
+Schedule Patterns: Working hours, meeting density, time zones
+Geographic Context: Office locations, time zones, travel patterns, regional references
+Important Dates: Recurring events, team rituals, key milestones
+
+5. DOMAIN EXPERTISE & INTERESTS
+
+Subject Matter Expertise: Technical skills, domain knowledge areas
+Learning & Development: Training, certifications, areas of growth
+Professional Interests: Topics frequently discussed or researched
+
+6. CONTEXTUAL INTELLIGENCE
+
+Current Priorities: Urgent/important items based on recent activity
+Pain Points & Challenges: Recurring issues, blockers, concerns expressed
+Cultural Context: Communication norms, team dynamics, organisational values
+
+OUTPUT REQUIREMENTS:
+
+Provide specific examples with timestamps and sources
+Note confidence levels for inferences (High/Medium/Low)
+Flag data gaps or ambiguities
+Synthesise patterns rather than listing raw data
+Prioritise recent data (last 3-6 months) while noting significant historical context
