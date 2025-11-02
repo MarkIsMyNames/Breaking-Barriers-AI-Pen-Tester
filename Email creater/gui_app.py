@@ -13,7 +13,6 @@ from pathlib import Path
 import gradio as gr
 from llama_cpp import Llama
 
-# Configure logging
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
@@ -21,16 +20,12 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-# ============================================================================
-# Configuration Constants
-# ============================================================================
-
 class ModelConfig:
     """Model configuration constants."""
     PATH = "Qwen3-8B-Jailbroken.i1-Q4_K_M.gguf"
     CONTEXT_SIZE = 2048
     CPU_THREADS = 4
-    GPU_LAYERS = 0  # Set to -1 to use GPU if available
+    GPU_LAYERS = 0
     STOP_SEQUENCES = ["</s>", "User:", "Human:"]
 
 
@@ -40,17 +35,14 @@ class UIConfig:
     SERVER_PORT = 7860
     SHARE_LINK = False
 
-    # Default generation parameters
     DEFAULT_MAX_TOKENS = 512
     DEFAULT_TEMPERATURE = 0.7
     DEFAULT_TOP_P = 0.9
 
-    # Slider ranges
-    MAX_TOKENS_RANGE = (50, 2048, 50)  # (min, max, step)
+    MAX_TOKENS_RANGE = (50, 2048, 50)
     TEMPERATURE_RANGE = (0.1, 2.0, 0.1)
     TOP_P_RANGE = (0.1, 1.0, 0.05)
 
-    # Example prompts
     EXAMPLES = [
         "Write a short poem about artificial intelligence.",
         "Explain quantum computing in simple terms.",
@@ -58,19 +50,9 @@ class UIConfig:
     ]
 
 
-# ============================================================================
-# Theme Configuration
-# ============================================================================
-
 def create_dark_theme() -> gr.themes.Soft:
-    """
-    Create a custom dark theme for the Gradio interface.
-
-    Returns:
-        Configured Gradio theme with dark color scheme
-    """
+    """Create a custom dark theme for the Gradio interface."""
     return gr.themes.Soft(primary_hue="blue").set(
-        # Background colors
         body_background_fill="*neutral_950",
         body_background_fill_dark="*neutral_950",
         block_background_fill="*neutral_900",
@@ -78,7 +60,6 @@ def create_dark_theme() -> gr.themes.Soft:
         input_background_fill="*neutral_800",
         input_background_fill_dark="*neutral_800",
 
-        # Text colors
         body_text_color="*neutral_100",
         body_text_color_dark="*neutral_100",
         block_label_text_color="*neutral_100",
@@ -86,7 +67,6 @@ def create_dark_theme() -> gr.themes.Soft:
         block_title_text_color="*neutral_50",
         block_title_text_color_dark="*neutral_50",
 
-        # Button colors
         button_primary_background_fill="*primary_600",
         button_primary_background_fill_dark="*primary_600",
         button_primary_text_color="white",
@@ -96,7 +76,6 @@ def create_dark_theme() -> gr.themes.Soft:
         button_secondary_text_color="*neutral_100",
         button_secondary_text_color_dark="*neutral_100",
 
-        # Input placeholder
         input_placeholder_color="*neutral_400",
         input_placeholder_color_dark="*neutral_400",
     )
@@ -104,30 +83,27 @@ def create_dark_theme() -> gr.themes.Soft:
 
 CUSTOM_CSS = """
     .gradio-container { color: #e5e5e5 !important; }
-    label, .label { color: #f5f5f5 !important; }
+    label, .label, span { color: #f5f5f5 !important; }
     .gr-button { color: #ffffff !important; }
     button { background-color: #404040 !important; color: #ffffff !important; }
     button.primary { background-color: #2563eb !important; }
-    input::placeholder { color: #a3a3a3 !important; }
-    textarea::placeholder { color: #a3a3a3 !important; }
-    input, textarea { color: #f5f5f5 !important; }
+    input::placeholder, textarea::placeholder { color: #a3a3a3 !important; }
+    input, textarea { color: #f5f5f5 !important; background-color: #262626 !important; }
+    .prose { color: #e5e5e5 !important; }
+    .markdown { color: #e5e5e5 !important; }
+    h1, h2, h3, h4, h5, h6 { color: #f5f5f5 !important; }
+    .gr-form { background-color: #1a1a1a !important; }
+    .gr-box { border-color: #404040 !important; }
+    .gr-input-label { color: #f5f5f5 !important; }
+    .gr-text-input { background-color: #262626 !important; color: #f5f5f5 !important; }
+    div[class*="svelte"] { color: #e5e5e5 !important; }
 """
 
-
-# ============================================================================
-# Model Management
-# ============================================================================
 
 class ModelManager:
     """Manages the LLM model loading and inference."""
 
     def __init__(self, config: ModelConfig):
-        """
-        Initialize the model manager.
-
-        Args:
-            config: Model configuration object
-        """
         self.config = config
         self.model: Optional[Llama] = None
         self._load_model()
@@ -164,18 +140,7 @@ class ModelManager:
         temperature: float,
         top_p: float
     ) -> str:
-        """
-        Generate a response from the model.
-
-        Args:
-            prompt: Input text prompt
-            max_tokens: Maximum number of tokens to generate
-            temperature: Sampling temperature (higher = more random)
-            top_p: Nucleus sampling parameter
-
-        Returns:
-            Generated text response
-        """
+        """Generate a response from the model."""
         if not prompt.strip():
             return "⚠️ Please enter a prompt."
 
@@ -204,21 +169,8 @@ class ModelManager:
             return error_msg
 
 
-# ============================================================================
-# UI Components
-# ============================================================================
-
 def create_input_column(ui_config: UIConfig) -> Tuple:
-    """
-    Create the input column with prompt and settings.
-
-    Args:
-        ui_config: UI configuration object
-
-    Returns:
-        Tuple of UI components (prompt_input, max_tokens, temperature,
-                               top_p, submit_btn, clear_btn)
-    """
+    """Create the input column with prompt and settings."""
     with gr.Column():
         prompt_input = gr.Textbox(
             label="Enter your prompt",
@@ -259,12 +211,7 @@ def create_input_column(ui_config: UIConfig) -> Tuple:
 
 
 def create_output_column() -> gr.Textbox:
-    """
-    Create the output column for model responses.
-
-    Returns:
-        Output textbox component
-    """
+    """Create the output column for model responses."""
     with gr.Column():
         output_text = gr.Textbox(
             label="Model Response",
@@ -277,49 +224,28 @@ def create_output_column() -> gr.Textbox:
 
 
 def clear_inputs() -> Tuple[str, str]:
-    """
-    Clear both input and output fields.
-
-    Returns:
-        Tuple of empty strings for prompt and output
-    """
+    """Clear both input and output fields."""
     return "", ""
 
 
-# ============================================================================
-# Main Application
-# ============================================================================
-
 def create_interface(model_manager: ModelManager, ui_config: UIConfig) -> gr.Blocks:
-    """
-    Create the main Gradio interface.
-
-    Args:
-        model_manager: Initialized model manager
-        ui_config: UI configuration object
-
-    Returns:
-        Configured Gradio Blocks interface
-    """
+    """Create the main Gradio interface."""
     with gr.Blocks(
         title="Qwen3-8B Chat Interface",
         theme=create_dark_theme(),
         css=CUSTOM_CSS
     ) as demo:
-        # Header
         gr.Markdown("# 🤖 Qwen3-8B AI Model Interface")
         gr.Markdown(
             "Enter your prompt below and adjust the generation parameters as needed. "
             "Click the examples below to get started!"
         )
 
-        # Main UI layout
         with gr.Row():
             components = create_input_column(ui_config)
             prompt_input, max_tokens, temperature, top_p, submit_btn, clear_btn = components
             output_text = create_output_column()
 
-        # Event handlers
         submit_btn.click(
             fn=model_manager.generate,
             inputs=[prompt_input, max_tokens, temperature, top_p],
@@ -331,7 +257,6 @@ def create_interface(model_manager: ModelManager, ui_config: UIConfig) -> gr.Blo
             outputs=[prompt_input, output_text]
         )
 
-        # Example prompts
         gr.Examples(
             examples=[[example] for example in ui_config.EXAMPLES],
             inputs=prompt_input,
@@ -344,14 +269,11 @@ def create_interface(model_manager: ModelManager, ui_config: UIConfig) -> gr.Blo
 def main():
     """Main application entry point."""
     try:
-        # Initialize configuration
         model_config = ModelConfig()
         ui_config = UIConfig()
 
-        # Load model
         model_manager = ModelManager(model_config)
 
-        # Create and launch interface
         demo = create_interface(model_manager, ui_config)
 
         logger.info(f"Launching server on {ui_config.SERVER_NAME}:{ui_config.SERVER_PORT}")
