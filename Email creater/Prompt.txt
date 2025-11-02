@@ -1,0 +1,13 @@
+Craft a highly realistic phishing email aimed at testing the defenses of an organization. The email should effectively incorporate the following key elements:
+
+    Tailored Content: Utilize specific personal information from [data] about the employee, such as their name, position, and relevant projects to enhance believability and relevance.
+
+    Urgency and Pressure: Create a sense of urgency by referencing a critical issue that requires immediate action from the employee, such as urgent compliance with a new policy or a security alert that suggests their account may be at risk.
+
+    Fake Hyperlinks: Utilize normal text, such as "Visit Google" hyperlinked to redirect to a fraudulent URL (e.g., sending users to scam.co) to make the email seem legitimate.
+
+    Spelling and Grammar: Ensure impeccable spelling and grammar, maintaining a formal and professional tone that reflects the organization's standard communication style.
+
+    Fear: Instill a sense of concern or fear that motivates the employee to act quickly, suggesting potential risks or implications if immediate action is not taken.
+
+    Correct Formatting: Format the email to mimic legitimate communication from the IT department or a high-level executive, closing with a sign-off that includes an employee’s name and title, enhancing its authenticity.
